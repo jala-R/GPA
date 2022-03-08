@@ -62,9 +62,16 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
         console.log(req.signedCookies)
         const accuracy=Number(req.body.accuracy);
         const points=JSON.parse(req.body.points);
-        console.log(typeof(accuracy));
-        console.log(points)
-        res.send();
+        let boxCnt=400/accuracy;
+        let textPassword="";
+        for(let i in points){
+            let num=Number(points[i]);
+            let x=num/boxCnt;
+            let y=num%boxCnt;
+            console.log(x,y);
+            textPassword+=String(i)+" "+String(x)+" "+String(y);
+        }
+        res.send(textPassword);
     }catch(err){
         res.status(404).send(err.message);
     }
