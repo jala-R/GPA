@@ -63,7 +63,7 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
         const accuracy=Number(req.body.accuracy);
         const points=JSON.parse(req.body.points);
         console.log(typeof(accuracy));
-        console.log(typeof(points))
+        console.log(points)
         res.send();
     }catch(err){
         res.status(404).send(err.message);
