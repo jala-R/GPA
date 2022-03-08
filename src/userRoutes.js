@@ -41,7 +41,9 @@ app.get("/email-verification/:token",(req,res)=>{
             maxAge:1000*60*10,
             httpOnly:true,
             path:"/set-password",
-            signed:true
+            signed:true,
+            secure:true,
+            sameSite:"none"
         })
         res.redirect(process.env.FRONTURI+"/signup/gpa2")
     }catch(err){
