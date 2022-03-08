@@ -4,7 +4,8 @@
   "description": "graphical password authentication",
   "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/.bin/env-cmd -f ./envs/dev.env nodemon index.js"
+    "dev": "./node_modules/.bin/env-cmd -f ./envs/dev.env nodemon index.js",
+    "start":"node index.js"
   },
   "repository": {
     "type": "git",
