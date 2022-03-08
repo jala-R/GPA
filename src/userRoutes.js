@@ -56,6 +56,7 @@ app.get("/email-verification/:token",(req,res)=>{
 app.post("/set-password",multer().single("img"),async (req,res)=>{
     try{
         console.log(req.file)
+        console.log(req.body);
         let accuracy=req.body.accuracy;
         let scale=400/accuracy;
         let textPassword="";
