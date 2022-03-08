@@ -58,7 +58,7 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
         // console.log(req.file)
         // console.log(req.body);
         let accuracy=Number(req.body.accuracy);
-        console.log(req.body);
+        console.log(JSON.parse(req.body.points));
         // let scale=400/accuracy;
         let textPassword="";
         for(let i=0;i<3;i++){
