@@ -2,6 +2,7 @@ const express=require("express"),
     app=express(),
     userRoutes=require("./src/userRoutes"),
     cookieParser=require("cookie-parser");
+require("./db/connect");
 
 
 

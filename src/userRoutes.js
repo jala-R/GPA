@@ -1,6 +1,10 @@
 const app=require("express").Router(),
     jwt=require("jsonwebtoken"),
-    sendEmail=require("../helper/sendEmail")
+    sendEmail=require("../helper/sendEmail"),
+    isEmailVerified=require("../helper/isEmailVerified"),
+    multer=require("multer"),
+    User=require("../db/model/user"),
+    bcrypt=require("bcryptjs");
 
 
 
@@ -47,14 +51,33 @@ app.get("/email-verification/:token",(req,res)=>{
 
 
 //TODO
-//getsignedcookie -> get email -> store image in drive -> create a new user -> store images accuracy -> store coordinater in hash -> set login cookie -> 200
-// app.post("/set-password",async (req,res)=>{
-//     try{
-//         res.send(req.signedCookies);
-//     }catch(err){
-//         res.status(404).send(err.message);
-//     }
-// })
+//getsignedcookie -> get email -> store image in DB -> create a new user -> store images accuracy -> store coordinater in hash -> set login cookie -> 200
+//  done                done        
+app.post("/set-password",multer().single("img"),async (req,res)=>{
+    try{
+        
+        let accuracy=req.body.accuracy;
+        let scale=400/accuracy;
+        let textPassword="";
+        for(let i=0;i<3;i++){
+            let point=req.body.points[i];
+            let xBox=point/accuracy;
+            let yBox=point%accuracy;
+            textPassword+=String(i)+" "+String(xBox)+" "+String(yBox);
+        }
+
+        let newUser=new User({
+            username:req.signedCookies.nid,
+            image:req.file.buffer,
+            accuracy:req.body.accuracy,
+            password:await bcrypt.hash(textPassword,8)
+        })
+        newUser=await newUser.save();
+        res.send(newUser);
+    }catch(err){
+        res.status(404).send(err.message);
+    }
+})
 
 
 module.exports=app;
