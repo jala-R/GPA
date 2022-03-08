@@ -21,6 +21,10 @@ app.use((req,res,next)=>{
 //routes merge point
 app.use(userRoutes)
 
+app.options("/*",(req,res)=>{
+    console.log("recieved")
+    res.send();
+})
 
 app.listen(process.env.PORT,()=>{
     console.log(`server running on ${process.env.PORT}`)
