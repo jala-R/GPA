@@ -55,8 +55,8 @@ app.get("/email-verification/:token",(req,res)=>{
 //  done                done        
 app.post("/set-password",multer().single("img"),async (req,res)=>{
     try{
-        console.log(req.file)
-        console.log(req.body);
+        // console.log(req.file)
+        // console.log(req.body);
         let accuracy=Number(req.body.accuracy);
         
         // let scale=400/accuracy;
@@ -67,6 +67,7 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
             let yBox=point%accuracy;
             textPassword+=(String(i)+" "+String(xBox)+" "+String(yBox));
         }
+        console.log(textPassword)
         res.send(textPassword);
         // let newUser=new User({
         //     username:req.signedCookies.nid,
