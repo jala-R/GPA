@@ -43,7 +43,7 @@ app.get("/email-verification/:token",(req,res)=>{
             path:"/set-password",
             signed:true
         })
-        res.redirect(process.env.FRONTURI)
+        res.redirect(process.env.FRONTURI+"signup/gpa2")
     }catch(err){
         res.status(404).send(err.message);
     }
