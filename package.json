@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/jala-R/GPA#readme",
   "dependencies": {
-    "env-cmd": "^10.1.0"
+    "cookie-parser": "^1.4.6",
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.7.2"
   }
 }
