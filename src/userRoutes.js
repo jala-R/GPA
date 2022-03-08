@@ -14,6 +14,8 @@ const app=require("express").Router(),
 app.post("/email-verification",async (req,res)=>{
     try{
         let email=req.body.email;
+        let user=await User.findOne({username:email});
+        if(!user)throw new Error("user already exist");
         let token=jwt.sign({email},process.env.JWTSECRET,{
             expiresIn:600
         })
