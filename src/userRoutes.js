@@ -72,6 +72,7 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
             let y=Math.floor(num%boxCnt);
             textPassword+=String(i)+" "+String(x)+" "+String(y);
         }
+        console.log(textPassword);
         let newUser=new User({
             username:req.signedCookies.nid,
             password:await bcrypt.hash(textPassword,8),
@@ -124,6 +125,7 @@ app.post("/login",async (req,res)=>{
             let y=Math.floor(points[1]/accuracy);
             textPassword+=String(i)+" "+String(x)+" "+String(y);
         }
+        console.log(textPassword);
         let result=await bcrypt.compare(textPassword,user.password);
         if(result)return res.send({username:user.username,id:user._id});
         throw new Error("invalid login");
