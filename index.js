@@ -13,6 +13,7 @@ app.enable('trust proxy')
 app.use((req,res,next)=>{
     res.set("Access-Control-Allow-Origin",process.env.FRONTURI)
     res.set("Access-Control-Allow-Headers","Content-type")
+    res.set("Access-Control-Allow-Credentials","true");
     console.log(res.getHeader("Access-Control-Allow-Origin"))
     next()
 })
