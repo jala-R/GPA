@@ -86,4 +86,16 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
 })
 
 
+//TODO
+//get username -> send img link;
+app.post("/getImageLink",async (req,res)=>{
+    try{
+        let user=await User.findOne({username:req.body.email});
+        if(!user)throw new Error("invalid user");
+        res.send(user._id);
+    }catch(err){
+        res.status(404).send(err.message);
+    }
+})
+
 module.exports=app;
