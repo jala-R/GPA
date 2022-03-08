@@ -106,7 +106,29 @@ app.get("/image/:id",async (req,res)=>{
         res.set("Content-Length",Buffer.byteLength(user.image.data));
         res.send(user.image.data);
     }catch(err){
-        res.status(404)
+        res.status(404).send(err.message);
+    }
+})
+
+app.post("/login",async (req,res)=>{
+    try{
+        let {id,points}=req.body;
+        console.log(typeof(id));
+        console.log(typeof(points));
+        let user=await User.findById(id);
+        if(!user)throw new Error("invalid login");
+        let textPassword="";
+        let accuracy=req.body.accuracy;
+        for(let i=0;i<3;i++){
+            let x=Math.floor(points[0]/accuracy);
+            let y=Math.floor(points[1]/accuracy);
+            textPassword+=String(i)+" "+String(x)+" "+String(y);
+        }
+        let result=await bcrypt.compare(textPassword,user.password);
+        if(result)return res.send({username:user.username,id:user._id});
+        throw new Error("invalid login");
+    }catch(err){
+        res.status(404).send(err.message);
     }
 })
 
