@@ -121,7 +121,7 @@ app.post("/login",async (req,res)=>{
         let textPassword="";
         let accuracy=req.body.accuracy;
         for(let i=0;i<3;i++){
-            console.log(points[i])
+            console.log(typeof(points[i][0]),typeof(points[i][0]))
             let x=Math.floor(points[i][0]/accuracy);
             let y=Math.floor(points[i][1]/accuracy);
             textPassword+=String(i)+" "+String(x)+" "+String(y);
