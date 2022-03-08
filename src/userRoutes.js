@@ -72,7 +72,7 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
         }
         let newUser=new User({
             username:req.signedCookies.nid,
-            password:bcrypt.hash(textPassword,8),
+            password:await bcrypt.hash(textPassword,8),
             accuracy,
             image:{data:req.file.buffer,mimetype:req.file.mimetype}
         })
