@@ -55,7 +55,7 @@ app.get("/email-verification/:token",(req,res)=>{
 //TODO
 //getsignedcookie -> get email -> store image in DB -> create a new user -> store images accuracy -> store coordinater in hash -> set login cookie -> 200
 //  done                done        
-app.post("/set-password",isEmailVerified,multer().single("img"),async (req,res)=>{
+app.post("/set-password",multer().single("img"),async (req,res)=>{
     try{
         console.log(req.body);
         console.log(req.file);
