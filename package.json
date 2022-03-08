@@ -1,0 +1,23 @@
+{
+  "name": "GPA",
+  "version": "1.0.0",
+  "description": "graphical password authentication",
+  "main": "index.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/env-cmd -f ./envs/dev.env nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jala-R/GPA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jala-R/GPA/issues"
+  },
+  "homepage": "https://github.com/jala-R/GPA#readme",
+  "dependencies": {
+    "env-cmd": "^10.1.0"
+  }
+}
