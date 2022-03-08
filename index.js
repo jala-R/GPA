@@ -9,6 +9,7 @@ require("./db/connect");
 //configs
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIESECRET));
+app.enable('trust proxy')
 
 
 //routes merge point
