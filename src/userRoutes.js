@@ -55,28 +55,9 @@ app.get("/email-verification/:token",(req,res)=>{
 //  done                done        
 app.post("/set-password",multer().single("img"),async (req,res)=>{
     try{
-        // console.log(req.file)
-        // console.log(req.body);
-        let accuracy=Number(req.body.accuracy);
-        console.log(JSON.parse(req.body.points));
-        // let scale=400/accuracy;
-        let textPassword="";
-        for(let i=0;i<3;i++){
-            let point=Number(req.body.points[i]);
-            console.log(point)
-            let xBox=point/accuracy;
-            let yBox=point%accuracy;
-            textPassword+=(String(i)+" "+String(xBox)+" "+String(yBox));
-        }
-        console.log(textPassword)
-        // res.send(textPassword);
-        // let newUser=new User({
-        //     username:req.signedCookies.nid,
-        //     image:req.file.buffer,
-        //     accuracy:req.body.accuracy,
-        //     password:await bcrypt.hash(textPassword,8)
-        // })
-        // newUser=await newUser.save();
+        console.log(req.body);
+        console.log(req.file);
+        console.log(req.signedCookies)
         res.send();
     }catch(err){
         res.status(404).send(err.message);
