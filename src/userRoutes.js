@@ -20,7 +20,7 @@ app.post("/email-verification",async (req,res)=>{
         // console.log(token);
         let url=`${req.protocol}://${req.headers.host}/email-verification/${encodeURI(token)}`;
         await sendEmail(email,"email verification",url);
-        res.send(url);
+        res.send();
     }catch(err){
         res.status(404).send(err.message);
     }
