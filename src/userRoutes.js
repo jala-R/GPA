@@ -98,4 +98,16 @@ app.post("/getImageLink",async (req,res)=>{
     }
 })
 
+app.get("/image/:id",async (req,res)=>{
+    try{
+        let user=await User.findById(req.params.id);
+        if(!user)throw new Error("invaild user");
+        res.set("Content-Type",user.image.mimetype);
+        res.set("Content-Length",Buffer.byteLength(user.image.data));
+        res.send(user.image.data);
+    }catch(err){
+        res.status(404)
+    }
+})
+
 module.exports=app;
