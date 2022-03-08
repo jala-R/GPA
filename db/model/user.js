@@ -18,7 +18,17 @@ const userSchema=new mongoose.Schema({
         max:100
     },
     image:{
-        type:Buffer,
+        type:new mongoose.Schema({
+            data:{
+                type:Buffer,
+                required:true
+            },
+            mimetype:{
+                type:String,
+                required:true
+            }
+        }),
+        required:true
     }
 })
 

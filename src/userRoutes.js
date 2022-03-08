@@ -68,10 +68,16 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
             let num=Number(points[i])-1;
             let x=Math.floor(num/boxCnt);
             let y=Math.floor(num%boxCnt);
-            console.log(x,y);
             textPassword+=String(i)+" "+String(x)+" "+String(y);
         }
-        res.send(textPassword);
+        let newUser=new User({
+            username:req.signedCookies.nid,
+            password:bcrypt.hash(textPassword,8),
+            accuracy,
+            image:{data:req.file.buffer,mimetype:req.file.mimetype}
+        })
+        await newUser.save();
+        res.send(newUser);
     }catch(err){
         res.status(404).send(err.message);
     }
