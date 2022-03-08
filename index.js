@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser(process.env.COOKIESECRET));
 app.enable('trust proxy')
 app.use((req,res,next)=>{
-    res.set("Access-Control-Allow-Origin","http://localhost:3000")
+    res.set("Access-Control-Allow-Origin",process.env.FRONTURI)
     res.set("Access-Control-Allow-Headers","Content-type")
     console.log(res.getHeader("Access-Control-Allow-Origin"))
     next()
@@ -22,7 +22,6 @@ app.use((req,res,next)=>{
 app.use(userRoutes)
 
 app.options("/*",(req,res)=>{
-    console.log("recieved")
     res.send();
 })
 
