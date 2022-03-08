@@ -58,18 +58,19 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
         // console.log(req.file)
         // console.log(req.body);
         let accuracy=Number(req.body.accuracy);
-        
+        console.log(req.body);
+        res.send();
         // let scale=400/accuracy;
-        let textPassword="";
-        for(let i=0;i<3;i++){
-            console.log(point)
-            let point=Number(req.body.points[i]);
-            let xBox=point/accuracy;
-            let yBox=point%accuracy;
-            textPassword+=(String(i)+" "+String(xBox)+" "+String(yBox));
-        }
-        console.log(textPassword)
-        res.send(textPassword);
+        // let textPassword="";
+        // for(let i=0;i<3;i++){
+        //     console.log(point)
+        //     let point=Number(req.body.points[i]);
+        //     let xBox=point/accuracy;
+        //     let yBox=point%accuracy;
+        //     textPassword+=(String(i)+" "+String(xBox)+" "+String(yBox));
+        // }
+        // console.log(textPassword)
+        // res.send(textPassword);
         // let newUser=new User({
         //     username:req.signedCookies.nid,
         //     image:req.file.buffer,
