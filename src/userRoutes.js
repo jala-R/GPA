@@ -60,10 +60,10 @@ app.post("/set-password",isEmailVerified,multer().single("img"),async (req,res)=
         console.log(req.body);
         console.log(req.file);
         console.log(req.signedCookies)
-        const accuracy=Number(req.body.accuracy);
-        const points=JSON.parse(req.body.points);
-        console.log(typeof(accuracy));
-        console.log(typeof(points))
+        // const accuracy=Number(req.body.accuracy);
+        // const points=JSON.parse(req.body.points);
+        // console.log(typeof(accuracy));
+        // console.log(typeof(points))
         res.send();
     }catch(err){
         res.status(404).send(err.message);
