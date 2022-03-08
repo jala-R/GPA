@@ -62,6 +62,7 @@ app.post("/set-password",multer().single("img"),async (req,res)=>{
         // let scale=400/accuracy;
         let textPassword="";
         for(let i=0;i<3;i++){
+            console.log(point)
             let point=Number(req.body.points[i]);
             let xBox=point/accuracy;
             let yBox=point%accuracy;
