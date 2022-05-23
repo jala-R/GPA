@@ -145,12 +145,21 @@ app.get("/test",async (req,res)=>{
         let temp=new Client({
             name:"sldnckjsd",
             callbackUrl:["sdsdvsvdsv"],
-            domain:"sddscsvsdv",
-            privateKey:"wssdcsdcsdc"
+            domain:"sddscsvsdv"
         })
         await temp.save();
+        res.send(temp)
     }catch(err){
         res.send(err.message);
+    }
+})
+
+app.get("/validate/:id/",async (req,res)=>{
+    try{
+        let client=await Client.findById(req.params.id);
+        res.send(await client.validateClient(req.query.key))
+    }catch(err){
+        res.status(404).send(err.message)
     }
 })
 
