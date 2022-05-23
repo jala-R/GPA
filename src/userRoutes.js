@@ -4,7 +4,8 @@ const app=require("express").Router(),
     isEmailVerified=require("../helper/isEmailVerified"),
     multer=require("multer"),
     User=require("../db/model/user"),
-    bcrypt=require("bcryptjs");
+    bcrypt=require("bcryptjs"),
+    Client=require("../db/model/Client");
 
 
 
@@ -135,5 +136,22 @@ app.post("/login",async (req,res)=>{
     }
 })
 ///signup and login over
+
+
+
+//generate confidential client
+app.get("/test",async (req,res)=>{
+    try{
+        let temp=new Client({
+            name:"sldnckjsd",
+            callbackUrl:["sdsdvsvdsv"],
+            domain:"sddscsvsdv",
+            privateKey:"wssdcsdcsdc"
+        })
+        await temp.save();
+    }catch(err){
+        res.send(err.message);
+    }
+})
 
 module.exports=app;
