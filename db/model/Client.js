@@ -17,7 +17,19 @@ const ClientSchema=mongoose.Schema({
     },
     privateKey:{
         type:String,
-    }
+    },
+    accesToken:[new mongoose.Schema({
+        data:{
+            id:{
+                type:String,
+                required:true
+            },
+            username:{
+                type:String,
+                required:true
+            }
+        }
+    })]
 })
 
 
@@ -41,6 +53,24 @@ Client.prototype.generatePrivateKey=async function(){
 
 Client.prototype.validateClient=function(key){
     return this.privateKey===key;
+}
+
+Client.prototype.checkCallback=function(givenUrl){
+    for(let callback in this.callbackUrl){
+        if(this.callbackUrl[callback]===givenUrl)return true;
+    
+    }
+
+    return false;
+}
+
+Client.prototype.generateAccesToken=function(user){
+    this.accesToken.push({
+        data:{
+            id:user._id,
+            username:user.username
+        }
+    })
 }
 
 

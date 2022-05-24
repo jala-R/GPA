@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const app=require("express").Router(),
     jwt=require("jsonwebtoken"),
     sendEmail=require("../helper/sendEmail"),
@@ -129,7 +131,15 @@ app.post("/login",async (req,res)=>{
         }
         console.log(textPassword);
         let result=await bcrypt.compare(textPassword,user.password);
-        if(result)return res.send({username:user.username,id:user._id});
+        if(result){
+            let {cid,callback}=req.body;
+            let client=await Client.findById(cid);
+            if(!client)throw new Error("ivalid client id");
+            if(!client.checkCallback(callback))throw new Error("callback mismatch");
+            let token=client.generateAccesToken(user);
+            await client.save();
+            res.send(token);
+        }
         throw new Error("invalid login");
     }catch(err){
         res.status(404).send(err.message);
@@ -139,27 +149,32 @@ app.post("/login",async (req,res)=>{
 
 
 
-//generate confidential client
-app.get("/test",async (req,res)=>{
+//get clent details
+app.post("/client-signup",async (req,res)=>{
     try{
-        let temp=new Client({
-            name:"sldnckjsd",
-            callbackUrl:["sdsdvsvdsv"],
-            domain:"sddscsvsdv"
-        })
-        await temp.save();
-        res.send(temp)
+        let client=new Client(req.body);
+        client=await client.save();
+        res.send(client);
     }catch(err){
-        res.send(err.message);
+        res.status(404).send(err.message);
     }
 })
 
-app.get("/validate/:id/",async (req,res)=>{
+app.post("/assecTokenToData",async(req,res)=>{
     try{
-        let client=await Client.findById(req.params.id);
-        res.send(await client.validateClient(req.query.key))
+        let {cid,callback,accessToken,privateKey}=req.body;
+        let client=await Client.findById(cid);
+        if(!client)throw new Error("invalid clientID");
+        if(!client.checkCallback(callback))throw new Error("ivalid callback")
+        if(!client.validateClient(privateKey))throw new Error("invalid key");
+        let data=client.accesToken.id(accessToken)
+        if(!data)throw new Error("invalid accesToken");
+        data.remove();
+        await client.save();
+        res.send(data);
+        
     }catch(err){
-        res.status(404).send(err.message)
+        res.status(404).send(err.message);
     }
 })
 
